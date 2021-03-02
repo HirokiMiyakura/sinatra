@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader'
 require 'erb'
-include ERB::Util
 
 helpers do
+  include ERB::Util
   def h(text)
     escape_html(text)
   end
@@ -66,12 +68,12 @@ def edit_memo(id, title, body)
   redirect '/'
 end
 
-patch '/memos/:id/edit' do |n|
+patch '/memos/:id/edit' do
   edit_memo(params['id'], params['title'], params['body'])
 end
 
-def delete_memo(m)
-  File.delete("memos/#{m}.json")
+def delete_memo(memo)
+  File.delete("memos/#{memo}.json")
   redirect '/'
 end
 
