@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2><%= @memo['title'] %></h2>
+      <p class="mt-5"><%= @memo['body'] %></p>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-6">
+      <p><a href="/memos/<%= @memo['id'] %>/edit" class="btn btn-primary">変更</a></p>
+    </div>
+    <div class="col-6">
+      <form action="/memos/<%= @memo['id'] %>" method="post">
+        <button type="submit" name="_method" value="DELETE" class="btn-danger">削除</button>
+      </form>
+    </div>
+  </div>
+</div>
+

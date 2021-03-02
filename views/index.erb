@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-8">
+      <ul class="list-group">
+        <% @memos.each do |m| %>
+          <li class="list-group-item"><a href="./memos/<%= m['id'] %>"><%= m['title'] %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-4">
+      <p><a href="./memos">メモを追加</a></p>
+    </div>
+  </div>
+</div>
