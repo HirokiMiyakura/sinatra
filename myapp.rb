@@ -11,9 +11,12 @@ helpers do
   end
 end
 
+def get_all_memos
+  Dir.glob('memos/*').map { |m| JSON.parse(File.read(m)) }
+end
+
 get '/' do
-  all_memos = Dir.glob('memos/*')
-  @memos = all_memos.map { |m| JSON.parse(File.read(m)) }
+  @memos = get_all_memos
   erb :index
 end
 
@@ -38,10 +41,9 @@ post '/memos' do
 end
 
 def get_memo(id)
-  all_memos = Dir.glob('memos/*')
-  @memos = all_memos.map { |m| JSON.parse(File.read(m)) }
-  @memos.each do |m|
-    @memo = m if m['id'] == id
+  @memos = get_all_memos
+  @memos.find do |memo|
+    @memo = memo if memo['id'] == id
   end
   @memo
 end
@@ -58,7 +60,7 @@ end
 
 def edit_memo(id, title, body)
   edited_memo = {
-    id: id,
+    id: h(id),
     title: h(title),
     body: h(body)
   }
@@ -82,5 +84,5 @@ delete '/memos/:id' do |n|
 end
 
 not_found do
-  'このページは存在しないでやんす、ブラウザの「戻るボタンを押すでやんす」'
+  'このページは存在しません。トップページにお戻りください。'
 end
