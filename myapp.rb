@@ -45,7 +45,6 @@ def get_memo(id)
   @memos.find do |memo|
     @memo = memo if memo['id'] == id
   end
-  @memo
 end
 
 get '/memos/:id' do |n|
