@@ -3,7 +3,7 @@
     <div class="col-8">
       <ul class="list-group">
         <% @memos.each do |m| %>
-          <li class="list-group-item"><a href="./memos/<%= m['id'] %>"><%= m['title'] %></a></li>
+          <li class="list-group-item"><a href="./memos/<%= m['id'] %>"><%= h(m['title']) %></a></li>
         <% end %>
       </ul>
     </div>

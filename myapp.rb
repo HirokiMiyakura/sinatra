@@ -27,8 +27,8 @@ end
 def create_memo(title, body)
   created_memo = {
     id: SecureRandom.uuid,
-    title: h(title),
-    body: h(body)
+    title: title,
+    body: body
   }
   File.open("memos/#{created_memo[:id]}.json", 'w') do |m|
     m.puts JSON.pretty_generate(created_memo)
@@ -41,8 +41,8 @@ post '/memos' do
 end
 
 def get_memo(id)
-  @memos = get_all_memos
-  @memos.find do |memo|
+  memos = get_all_memos
+  memos.find do |memo|
     @memo = memo if memo['id'] == id
   end
 end
@@ -59,9 +59,9 @@ end
 
 def edit_memo(id, title, body)
   edited_memo = {
-    id: h(id),
-    title: h(title),
-    body: h(body)
+    id: id,
+    title: title,
+    body: body
   }
   File.open("memos/#{edited_memo[:id]}.json", 'w') do |m|
     m.puts JSON.pretty_generate(edited_memo)
@@ -69,8 +69,9 @@ def edit_memo(id, title, body)
   redirect '/'
 end
 
-patch '/memos/:id/edit' do
-  edit_memo(params['id'], params['title'], params['body'])
+patch '/memos/:id/edit' do |id|
+  id = id
+  edit_memo(id, params['title'], params['body'])
 end
 
 def delete_memo(memo)
