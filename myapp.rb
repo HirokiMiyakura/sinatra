@@ -11,12 +11,12 @@ helpers do
   end
 end
 
-def get_all_memos
+def take_all_memos
   Dir.glob('memos/*').map { |m| JSON.parse(File.read(m)) }
 end
 
 get '/' do
-  @memos = get_all_memos
+  @memos = take_all_memos
   erb :index
 end
 
@@ -41,7 +41,7 @@ post '/memos' do
 end
 
 def get_memo(id)
-  memos = get_all_memos
+  memos = take_all_memos
   @memo = memos.find { |memo| memo['id'] == id }
 end
 
@@ -55,30 +55,36 @@ get '/memos/:id/edit' do |n|
   erb :edit
 end
 
-def edit_memo(id, title, body)
-  edited_memo = {
-    id: id,
-    title: title,
-    body: body
-  }
-  File.open("memos/#{edited_memo[:id]}.json", 'w') do |m|
-    m.puts JSON.pretty_generate(edited_memo)
+def check_arrays(id)
+  check_arrays = Dir.glob('memos/*')
+  if check_arrays.include?("memos/#{id}.json")
+    true
+  else
+    false
   end
-  redirect '/'
+end
+
+def edit_memo(id, title, body)
+  edited_memo = { id: id, title: title, body: body }
+  if check_arrays(id)
+    File.open("memos/#{edited_memo[:id]}.json", 'w') do |m|
+      m.puts JSON.pretty_generate(edited_memo)
+    end
+  end
 end
 
 patch '/memos/:id/edit' do |id|
-  id = id
   edit_memo(id, params['title'], params['body'])
-end
-
-def delete_memo(memo)
-  File.delete("memos/#{memo}.json")
   redirect '/'
 end
 
-delete '/memos/:id' do |n|
-  delete_memo(n)
+def delete_memo(id)
+  File.delete("memos/#{id}.json") if check_arrays(id)
+end
+
+delete '/memos/:id' do |id|
+  delete_memo(id)
+  redirect '/'
 end
 
 not_found do
