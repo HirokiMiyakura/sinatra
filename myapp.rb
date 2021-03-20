@@ -56,8 +56,8 @@ get '/memos/:id/edit' do |n|
 end
 
 def valid_id?(id)
-  check_arrays = Dir.glob('memos/*')
-  check_arrays.include?("memos/#{id}.json") ? true : false
+  present_memos = Dir.glob('memos/*')
+  true if present_memos.include?("memos/#{id}.json")
 end
 
 def edit_memo(id, title, body)
