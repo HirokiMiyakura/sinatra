@@ -5,12 +5,12 @@
         <div class="form-group">
           <label for="memoTitle">タイトル</label>
           <input type="text" value="<%= h(@memo['title']) %>" name="title" class="form-control" id="memoTitle"
-                 placeholder="<%= h(@memo['title']) %>">
+                 placeholder="タイトルをご入力ください">
         </div>
         <div class="form-group">
           <label for="memoBody">メモ内容</label>
           <input type="textarea" value="<%= h(@memo['body']) %>" name="body" class="form-control" id="memoBody"
-          placeholder="<%= h(@memo['body']) %>">
+          placeholder="メモ内容をご入力ください">
         </div>
         <button type="submit" name="_method" value="PATCH" class="btn btn-primary">変更</button>
       </form>
