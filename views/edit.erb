@@ -4,11 +4,13 @@
       <form action="/memos/<%= @memo['id'] %>/edit" method="post">
         <div class="form-group">
           <label for="memoTitle">タイトル</label>
-          <input type="text" name="title" class="form-control" id="memoTitle" placeholder="<%= h(@memo['title']) %>">
+          <input type="text" value="<%= h(@memo['title']) %>" name="title" class="form-control" id="memoTitle"
+                 placeholder="<%= h(@memo['title']) %>">
         </div>
         <div class="form-group">
           <label for="memoBody">メモ内容</label>
-          <input type="textarea" name="body" class="form-control" id="memoBody" placeholder="<%= h(@memo['body']) %>">
+          <input type="textarea" value="<%= h(@memo['body']) %>" name="body" class="form-control" id="memoBody"
+          placeholder="<%= h(@memo['body']) %>">
         </div>
         <button type="submit" name="_method" value="PATCH" class="btn btn-primary">変更</button>
       </form>

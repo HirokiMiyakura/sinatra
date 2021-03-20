@@ -57,7 +57,7 @@ end
 
 def valid_id?(id)
   check_arrays = Dir.glob('memos/*')
-  return unless check_arrays.include?("memos/#{id}.json")
+  check_arrays.include?("memos/#{id}.json") ? true : false
 end
 
 def edit_memo(id, title, body)
