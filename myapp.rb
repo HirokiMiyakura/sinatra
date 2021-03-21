@@ -57,7 +57,7 @@ end
 
 def valid_id?(id)
   present_memos = Dir.glob('memos/*')
-  true if present_memos.include?("memos/#{id}.json")
+  present_memos.include?("memos/#{id}.json")
 end
 
 def edit_memo(id, title, body)
