@@ -15,7 +15,7 @@ end
 
 get '/' do
   @memo = Memo.new
-  @memos = @memo.load_all_memos
+  @memos = @memo.load_all
   erb :index
 end
 
@@ -25,31 +25,31 @@ end
 
 post '/memos' do
   memo = Memo.new
-  memo.create_memo(params['title'], params['body'])
+  memo.create(params['title'], params['body'])
   redirect '/'
 end
 
 get '/memos/:id' do |id|
   memo = Memo.new
-  @memo = memo.find_memo(id)
+  @memo = memo.find(id)
   erb :single_memo
 end
 
 get '/memos/:id/edit' do |id|
   memo = Memo.new
-  @memo = memo.find_memo(id)
+  @memo = memo.find(id)
   erb :edit
 end
 
 patch '/memos/:id/edit' do |id|
   memo = Memo.new
-  memo.update_memo(id, params['title'], params['body'])
+  memo.update(id, params['title'], params['body'])
   redirect '/'
 end
 
 delete '/memos/:id' do |id|
   memo = Memo.new
-  memo.delete_memo(id)
+  memo.delete(id)
   redirect '/'
 end
 
